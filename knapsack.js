@@ -39,11 +39,32 @@ var knapsack = (itemList, maxWeight) => {
         // calculate weight left (can be 0)
         var weightLeft = kg - itemList[item].weight;
         // total value is value of item + value from previous item at column weight left
-        var totalValue = itemList[item].value + table[]
+        var totalValue = itemList[item].value + table[item-1][weightLeft];
         // fill space with Max of (total value, value from previous item at same column)
         table[item][kg] = Math.max(totalValue, table[item - 1][kg]);
       }
     }
   }
+
+  // now traverse through table to get which items theif should take
+  // start at last row and last column
+  var fillBag = (row, column) {
+    // if weight is 0, exit recursion
+    if (colulmn === 0) {
+      return;
+    }
+    // check if value is same as val in prev row (item)
+    if (table[row][column] !== table[row - 1][column]) {
+      // if not, add row item to bag
+      bag.push(itemList[row - 1].name);
+        // get remaining weight
+        // set row to row - 1
+      fillBag(row - 1, column - itemlist[row - 1].weight);
+    } else {
+      // if not, designate new row as row - 1;
+      fillBag(row - 1, column);
+    }
+  }
+  fillBag(table.length - 1, table[0].length - 1);
   return bag;
 }
