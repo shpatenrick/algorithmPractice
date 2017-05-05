@@ -15,11 +15,11 @@ var knapsack = (itemList, maxWeight) => {
   var sortedItemList = itemList.sort((a,b) => {
     return a.weight - b.weight;
   });
-  var maxWeight = itemList[itemList.length - 1].weight;
+  var maxWeight = sortedItemList[sortedItemList.length - 1].weight;
 
   // make benefit table with weight on x axis and items on y axis
   var table = [];
-  for (var i = 0; i <= itemList.length; i++) {
+  for (var i = 0; i <= sortedItemList.length; i++) {
     for (var j = 0; j <= maxWeight; j++) {
       table[i] = table[i] || [];
       table[i].push(0);
@@ -31,15 +31,15 @@ var knapsack = (itemList, maxWeight) => {
   for (var item = 1; item <= table.length; item++) {
     for (var kg = 1; kg < table[0].length; kg++) {
       // if item weight is > weight
-      if (itemList[item].weight > kg) {
+      if (sortedItemList[item].weight > kg) {
         // fill space with value from 1 row up
         table[item][kg] = table[item - 1][kg];
       } else {
       // if item weight is <= weight
         // calculate weight left (can be 0)
-        var weightLeft = kg - itemList[item].weight;
+        var weightLeft = kg - sortedItemList[item].weight;
         // total value is value of item + value from previous item at column weight left
-        var totalValue = itemList[item].value + table[item-1][weightLeft];
+        var totalValue = sortedItemList[item].value + table[item-1][weightLeft];
         // fill space with Max of (total value, value from previous item at same column)
         table[item][kg] = Math.max(totalValue, table[item - 1][kg]);
       }
@@ -59,7 +59,7 @@ var knapsack = (itemList, maxWeight) => {
       bag.push(itemList[row - 1].name);
         // get remaining weight
         // set row to row - 1
-      fillBag(row - 1, column - itemList[row - 1].weight);
+      fillBag(row - 1, column - sortedItemList[row - 1].weight);
     } else {
       // if not, designate new row as row - 1;
       fillBag(row - 1, column);
