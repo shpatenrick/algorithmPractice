@@ -48,9 +48,9 @@ var knapsack = (itemList, maxWeight) => {
 
   // now traverse through table to get which items theif should take
   // start at last row and last column
-  var fillBag = (row, column) {
+  var fillBag = (row, column) => {
     // if weight is 0, exit recursion
-    if (colulmn === 0) {
+    if (column === 0) {
       return;
     }
     // check if value is same as val in prev row (item)
@@ -59,7 +59,7 @@ var knapsack = (itemList, maxWeight) => {
       bag.push(itemList[row - 1].name);
         // get remaining weight
         // set row to row - 1
-      fillBag(row - 1, column - itemlist[row - 1].weight);
+      fillBag(row - 1, column - itemList[row - 1].weight);
     } else {
       // if not, designate new row as row - 1;
       fillBag(row - 1, column);
