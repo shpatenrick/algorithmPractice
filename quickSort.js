@@ -8,22 +8,22 @@
 var quickSort = (array, leftIndex, rightindex) => {
   // base case
   // if array length is less than 3, return array;
-  if (array.length < 2) {
-
+  if (array.length < 3) {
+    return array;
   }
   // choose pivot point
   var pivot = array[leftIndex - 1];
   // partitioning step
   // set left Index i, and right index j
 
-  while (leftIndex < rightIndex) {
+  while (leftIndex <= rightIndex) {
     // check if left index value is less than pivot
-    if (array[leftIndex] < pivot) {
+    if (array[leftIndex] <= pivot) {
       // i is in the corrrect half, increment i
       leftIndex++;
     }
     // check if right index is greater than pivot
-    if (array[rightIndex] > pivot) {
+    if (array[rightIndex] >= pivot) {
       // j is in correct half, decrement j
       j--;
     }
@@ -40,6 +40,8 @@ var quickSort = (array, leftIndex, rightindex) => {
   array[leftIndex] = pivot;
 
   // recurse through two new halves
+  quickSort(array, 1, leftIndex - 1);
+  quickSort(array, leftIndex + 2, array.length - 1);
 
   return array;
 }
